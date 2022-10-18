@@ -12,6 +12,7 @@ class SecondActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // get the text from the intent
+        // https://developer.android.com/reference/android/content/Intent
         val text = intent.extras?.get("text").toString()
 
         // set the text to the text view
