@@ -1,8 +1,12 @@
 package com.vicksoson.activitytutorial
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.vicksoson.activitytutorial.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +22,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         //set the content view to the root of the binding object
         setContentView(binding.root)
+        val startForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // assign the result to the result text view
+                    binding.result.text = result.data?.extras?.get("result").toString()
+                }
+            }
 
         // get the text from the edit text
         val text = binding.inputField.text
@@ -33,7 +44,8 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("text", text)
             // start activity
             // https://developer.android.com/reference/android/content/Context#startActivity(android.content.Intent)
-            startActivity(intent)
+            startForResult.launch(intent)
+
         }
     }
 

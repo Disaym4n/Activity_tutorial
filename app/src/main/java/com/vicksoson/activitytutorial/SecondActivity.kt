@@ -1,5 +1,6 @@
 package com.vicksoson.activitytutorial
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.vicksoson.activitytutorial.databinding.ActivitySecondBinding
@@ -19,6 +20,10 @@ class SecondActivity : AppCompatActivity() {
         binding.textView.text = text
 
         binding.button.setOnClickListener {
+            //set the result
+            setResult(RESULT_OK, Intent().apply {
+                putExtra("result", binding.inputField.text.toString())
+            })
             // finish() is used to close the current activity
             finish()
         }
