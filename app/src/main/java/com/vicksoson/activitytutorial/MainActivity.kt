@@ -47,6 +47,28 @@ class MainActivity : AppCompatActivity() {
             startForResult.launch(intent)
 
         }
+
+        //set click listener on button
+        binding.externalIntent.setOnClickListener {
+            // create an intent
+            // Intent is an abstract description of an operation to be performed
+            // https://developer.android.com/reference/android/content/Intent
+
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "text.toString()")
+                type = "text/plain"
+            }
+
+
+
+            val viewIntent = Intent(Intent.ACTION_VIEW)
+            // put the text from the edit text to the intent
+            viewIntent.data = Uri.parse("https://www.google.com")
+            // start activity
+            // https://developer.android.com/reference/android/content/Context#startActivity(android.content.Intent)
+            startActivity(viewIntent)
+        }
     }
 
 
